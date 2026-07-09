@@ -16,7 +16,8 @@ enum class VolumeType
 {
     TSDF = 0,
     HashTSDF = 1,
-    ColorTSDF = 2
+    ColorTSDF = 2,
+    ColorHashTSDF = 3
 };
 
 
@@ -95,6 +96,26 @@ public:
     */
     CV_WRAP float getTsdfTruncateDistance() const;
 
+    /** @brief Sets gradient delta factor used for normal estimation in TSDF volumes.
+    * @param val input value.
+    */
+    CV_WRAP void setGradientDeltaFactor(float val);
+
+    /** @brief Returns gradient delta factor used for normal estimation in TSDF volumes.
+    */
+    CV_WRAP float getGradientDeltaFactor() const;
+
+    /** @brief Sets threshold for number of frames after which invisible volume units are hidden/removed.
+    * For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed.
+    * @param val input value.
+    */
+    CV_WRAP void setVolumeUnitHideThreshold(int val);
+
+    /** @brief Returns threshold for number of frames after which invisible volume units are hidden/removed.
+    * For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed.
+    */
+    CV_WRAP int getVolumeUnitHideThreshold() const;
+
     /** @brief Sets threshold for depth truncation in meters. Truncates the depth greater than threshold to 0.
     * @param val input value.
     */
@@ -138,16 +159,16 @@ public:
 
     /** @brief Resolution of voxel space.
         Number of voxels in each dimension.
-        Applicable only for TSDF Volume.
-        HashTSDF volume only supports equal resolution in all three dimensions.
+        Applicable only for TSDF and ColorTSDF volumes.
+        HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions.
     * @param val input value.
     */
     CV_WRAP void setVolumeResolution(InputArray val);
 
     /** @brief Resolution of voxel space.
         Number of voxels in each dimension.
-        Applicable only for TSDF Volume.
-        HashTSDF volume only supports equal resolution in all three dimensions.
+        Applicable only for TSDF and ColorTSDF volumes.
+        HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions.
     * @param val output value.
     */
     CV_WRAP void getVolumeResolution(OutputArray val) const;
